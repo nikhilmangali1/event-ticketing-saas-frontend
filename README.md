@@ -1,2 +1,7 @@
-event-ticketing-saas frontend - https://github.com/nikhilmangali1/event-ticketing-saas-frontend
-event-ticketing-saas-backend - https://github.com/nikhilmangali1/event-ticketing-saas
+# TicketFlow Frontend
+
+Backend Repository:
+https://github.com/nikhilmangali1/event-ticketing-saas-backend
+
+Frontend Repository:
+https://github.com/nikhilmangali1/event-ticketing-saas-frontend
