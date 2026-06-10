@@ -4,6 +4,11 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import EventsPage from "./events/pages/EventsPage";
+import EventDetailsPage from "./events/pages/EventDetailsPage";
+import MyTicketsPage from "./tickets/pages/MyTicketsPage";
+import CreateEventPage from "./events/pages/CreateEventPage";
+import UpdateEventPage from "./events/pages/UpdateEventPage";
 
 function App() {
     return (
@@ -15,6 +20,43 @@ function App() {
                 <Route path="/dashboard" element={
                   <ProtectedRoute> <DashboardPage /></ProtectedRoute>
                 }/>
+                <Route path="/events" element={
+                    <ProtectedRoute>
+                        <EventsPage />
+                    </ProtectedRoute>
+                }/>
+                <Route
+                    path="/events/:id"
+                    element={
+                        <ProtectedRoute>
+                            <EventDetailsPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/my-tickets"
+                    element={
+                        <ProtectedRoute>
+                            <MyTicketsPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/events/create"
+                    element={
+                        <ProtectedRoute>
+                            <CreateEventPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/events/edit/:id"
+                    element={
+                        <ProtectedRoute>
+                            <UpdateEventPage />
+                        </ProtectedRoute>
+                    }
+                />
             </Routes>
         </BrowserRouter>
     );
