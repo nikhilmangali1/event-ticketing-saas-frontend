@@ -27,7 +27,7 @@ function DashboardPage(){
             <div className="dashboard-actions">
 
                 <div className="dashboard-card">
-                    <button onClick={() => navigate("/create-event")}>
+                    <button onClick={() => navigate("/events/create")}>
                         Create Event
                     </button>
                 </div>
