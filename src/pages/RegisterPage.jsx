@@ -24,7 +24,10 @@ function RegisterPage() {
     };
     return (
         <div className="auth-container">
-            <h1>Register Page</h1>
+            <h1>Create Account</h1>
+            <p className="auth-subtitle">
+                Join TicketFlow and start booking events
+            </p>
             <input
                 type="text"
                 value={name}

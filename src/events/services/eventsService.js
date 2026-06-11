@@ -1,46 +1,33 @@
-import axios from "axios";
+import axiosClient from "../../api/axiosClient";
 
-const BASE_URL = "http://localhost:8080/api/v1/events";
-
-const getAuthHeaders = () => ({
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
-    }
-});
+const BASE_URL = "/events";
 
 export const getAllEvents = async () => {
-    const response = await axios.get(
-        BASE_URL,
-        getAuthHeaders()
-    );
-
+    const response = await axiosClient.get(BASE_URL);
     return response.data;
 };
 
 export const getEventById = async (id) => {
-    const response = await axios.get(
-        `${BASE_URL}/${id}`,
-        getAuthHeaders()
+    const response = await axiosClient.get(
+        `${BASE_URL}/${id}`
     );
 
     return response.data;
 };
 
 export const createEvent = async (eventData) => {
-    const response = await axios.post(
+    const response = await axiosClient.post(
         `${BASE_URL}/create`,
-        eventData,
-        getAuthHeaders()
+        eventData
     );
 
     return response.data;
 };
 
 export const updateEvent = async (eventId, eventData) => {
-    const response = await axios.put(
+    const response = await axiosClient.put(
         `${BASE_URL}/${eventId}`,
-        eventData,
-        getAuthHeaders()
+        eventData
     );
 
     return response.data;
@@ -48,7 +35,6 @@ export const updateEvent = async (eventId, eventData) => {
 
 export const deleteEvent = async (eventId) => {
     await axios.delete(
-        `${BASE_URL}/${eventId}`,
-        getAuthHeaders()
+        `${BASE_URL}/${eventId}`
     );
 };

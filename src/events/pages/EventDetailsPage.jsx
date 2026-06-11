@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEventById, deleteEvent } from "../services/eventsService";
 import { bookTicket } from "../../tickets/services/ticketService";
+import Layout from "../../components/Layout";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorMessage from "../../components/ErrorMessage";
+import Button from "../../components/Button";
+import Card from "../../components/Card";
+import "../../styles/event-details.css";
 
 function EventDetailsPage() {
 
@@ -33,15 +39,15 @@ function EventDetailsPage() {
     }, [id]);
 
     if (loading) {
-        return <h2>Loading event...</h2>;
+        return <LoadingSpinner/>;
     }
 
     if (error) {
-        return <h2>{error}</h2>;
+        return <ErrorMessage message={error}/>;
     }
 
     if (!event) {
-        return <h2>Event not found</h2>;
+    return <ErrorMessage message="Event not found" />;
     }
 
     const handleBookTicket = async () => {
@@ -93,49 +99,97 @@ function EventDetailsPage() {
     
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h1>{event.title}</h1>
+        <Layout>
 
-            <p>
-                <strong>Description:</strong> {event.description}
-            </p>
+            <div className="event-details-container">
 
-            <p>
-                <strong>Venue:</strong> {event.venue}
-            </p>
+                <Card>
 
-            <p>
-                <strong>Date:</strong> {event.eventDate}
-            </p>
+                    <h1 className="event-details-title">
+                        {event.title}
+                    </h1>
 
-            <p>
-                <strong>Total Seats:</strong> {event.totalSeats}
-            </p>
+                    <p className="event-details-description">
+                        {event.description}
+                    </p>
 
-            <p>
-                <strong>Available Seats:</strong> {event.availableSeats}
-            </p>
-            <hr />
+                    <div className="event-info">
 
-            <button
-                onClick={handleBookTicket}
-                disabled={bookingLoading}
-            >
-                {bookingLoading ? "Booking..." : "Book Ticket"}
-            </button>
+                        <div className="event-info-item">
+                            <strong>Venue</strong>
+                            <div>{event.venue}</div>
+                        </div>
 
-            {bookingMessage && (
-                <p>{bookingMessage}</p>
-            )}
-            <button onClick={() => navigate(`/events/edit/${id}`)}>
-                Update Event
-            </button>
+                        <div className="event-info-item">
+                            <strong>Date</strong>
+                            <div>
+                            {new Date(event.eventDate).toLocaleString("en-IN", {
+                                dateStyle: "medium",
+                                timeStyle: "short"
+                            })}
+                        </div>
+                        </div>
 
-            <button onClick={handleDelete}>
-                Delete Event
-            </button>
-        </div>
-        
+                        <div className="event-info-item">
+                            <strong>Price</strong>
+                            <div>₹{event.price}</div>
+                        </div>
+
+                        <div className="event-info-item">
+                            <strong>Seats</strong>
+                            <div>
+                                {event.availableSeats}/
+                                {event.totalSeats}
+                            </div>
+                        </div>
+
+                        <div className="event-info-item">
+                            <strong>Organizer</strong>
+                            <div>
+                                {event.organizerName}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div className="event-actions">
+
+                        <Button
+                            onClick={handleBookTicket}
+                            disabled={bookingLoading}
+                        >
+                            {bookingLoading
+                                ? "Booking..."
+                                : "Book Ticket"}
+                        </Button>
+
+                        <Button
+                            onClick={() =>
+                                navigate(`/events/edit/${id}`)
+                            }
+                        >
+                            Update Event
+                        </Button>
+
+                        <Button
+                            onClick={handleDelete}
+                        >
+                            Delete Event
+                        </Button>
+
+                    </div>
+
+                    {bookingMessage && (
+                        <div className="booking-message">
+                            {bookingMessage}
+                        </div>
+                    )}
+
+                </Card>
+
+            </div>
+
+        </Layout>
     );
 }
 

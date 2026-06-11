@@ -1,0 +1,16 @@
+.event-form-page {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.event-form-header {
+    margin-bottom: 24px;
+}
+
+.event-form-header h1 {
+    margin-bottom: 8px;
+}
+
+.event-form-header p {
+    color: #666;
+}

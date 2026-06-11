@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-    getEventById,
-    updateEvent
-} from "../services/eventsService";
+import { getEventById, updateEvent } from "../services/eventsService";
+import EventForm from "../components/EventForm";
+import Layout from "../../components/Layout";
 
 function UpdateEventPage() {
 
@@ -77,62 +76,20 @@ function UpdateEventPage() {
     }
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h1>Update Event</h1>
-
-            <form onSubmit={handleSubmit}>
-
-                <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
+        <Layout>
+            <div className="event-form-page">
+                <div className="event-form-header">
+                    <h1>Update Event</h1>
+                    <p>Modify event details and save your changes</p>
+                </div>
+                <EventForm
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                submitButtonText="Update Event"
                 />
-
-                <br /><br />
-
-                <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <input
-                    type="text"
-                    name="venue"
-                    value={formData.venue}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <input
-                    type="datetime-local"
-                    name="eventDate"
-                    value={formData.eventDate}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <input
-                    type="number"
-                    step="0.01"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <button type="submit">
-                    Update Event
-                </button>
-
-            </form>
-        </div>
+            </div>
+        </Layout>
     );
 }
 

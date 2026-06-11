@@ -1,14 +1,13 @@
+import Button from "../../components/Button";
+import Card from "../../components/Card";
+import "../../styles/tickets.css"
+
 function TicketCard({ ticket, onCancel }) {
     return (
-        <div
-            style={{
-                border: "1px solid #ccc",
-                padding: "15px",
-                marginBottom: "15px",
-                borderRadius: "8px"
-            }}
-        >
-            <h3>{ticket.detailsResponse.title}</h3>
+        <Card className="ticket-card">
+            <h3 className="ticket-title">
+                {ticket.detailsResponse.title}
+            </h3>
 
             <p>
                 <strong>Ticket ID:</strong> {ticket.ticketId}
@@ -19,17 +18,30 @@ function TicketCard({ ticket, onCancel }) {
             </p>
 
             <p>
-                <strong>Status:</strong> {ticket.status}
+                <strong>Event Date:</strong> {ticket.detailsResponse.eventDate}
             </p>
 
+            <p>
+                <strong>Price:</strong> ₹{ticket.detailsResponse.price}
+            </p>
+
+            <div>
+                <span
+                    className={`ticket-status ${ticket.status.toLowerCase()}`}
+                >
+                    {ticket.status}
+                </span>
+            </div>
+
             {ticket.status !== "CANCELLED" && (
-                <button
+                <Button
+                    className="cancel-ticket-btn"
                     onClick={() => onCancel(ticket.ticketId)}
                 >
                     Cancel Ticket
-                </button>
+                </Button>
             )}
-        </div>
+        </Card>
     );
 }
 

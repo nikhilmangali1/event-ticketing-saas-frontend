@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { getMyTickets,cancelTicket } from "../services/ticketService";
 import TicketCard from "../components/TicketCard";
+import Layout from "../../components/Layout";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import "../../styles/tickets.css"
 
 function MyTicketsPage() {
 
@@ -34,25 +37,41 @@ function MyTicketsPage() {
     };
 
     if (loading) {
-        return <h2>Loading tickets...</h2>;
+        return (
+            <Layout>
+                <LoadingSpinner />
+            </Layout>
+        );
     }
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h1>My Tickets</h1>
-
+        <Layout>
+           <div className="tickets-header">
+                <h1>My Tickets</h1>
+                <p>
+                    View and manage all your booked event tickets.
+                </p>
+            </div>
             {tickets.length === 0 ? (
-                <p>No tickets booked.</p>
+                <div className="empty-state">
+                    <h2>No Tickets Yet</h2>
+
+                    <p>
+                        You haven't booked any events yet.
+                    </p>
+                </div>
             ) : (
-                tickets.map(ticket => (
-                    <TicketCard
-                        key={ticket.ticketId}
-                        ticket={ticket}
-                        onCancel={handleCancel}
-                    />
-                ))
+                <div className="tickets-grid">
+                    {tickets.map(ticket => (
+                        <TicketCard
+                            key={ticket.ticketId}
+                            ticket={ticket}
+                            onCancel={handleCancel}
+                        />
+                    ))}
+                </div>
             )}
-        </div>
+        </Layout>
     );
 }
 
