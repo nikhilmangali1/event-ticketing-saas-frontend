@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createEvent } from "../services/eventsService";
+import Layout from "../../components/Layout";
 
 function CreateEventPage() {
 
@@ -32,7 +33,7 @@ function CreateEventPage() {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
+        <Layout>
             <h1>Create Event</h1>
 
             <form onSubmit={handleSubmit}>
@@ -101,7 +102,7 @@ function CreateEventPage() {
                 </button>
 
             </form>
-        </div>
+        </Layout>
     );
 }
 

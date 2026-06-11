@@ -1,15 +1,9 @@
 import { Link } from "react-router-dom";
+import Card from "../../components/Card";
 
 function EventCard({ event }) {
     return (
-        <div
-            style={{
-                border: "1px solid #ccc",
-                padding: "15px",
-                marginBottom: "15px",
-                borderRadius: "8px"
-            }}
-        >
+       <Card>
             <h2>{event.title}</h2>
 
             <p>{event.description}</p>
@@ -19,7 +13,7 @@ function EventCard({ event }) {
             <Link to={`/events/${event.id}`}>
                 View Details
             </Link>
-        </div>
+        </Card>
     );
 }
 

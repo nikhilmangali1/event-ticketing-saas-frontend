@@ -1,13 +1,8 @@
+import Card from "../../components/Card";
+
 function TicketCard({ ticket, onCancel }) {
     return (
-        <div
-            style={{
-                border: "1px solid #ccc",
-                padding: "15px",
-                marginBottom: "15px",
-                borderRadius: "8px"
-            }}
-        >
+        <Card>           
             <h3>{ticket.detailsResponse.title}</h3>
 
             <p>
@@ -29,7 +24,7 @@ function TicketCard({ ticket, onCancel }) {
                     Cancel Ticket
                 </button>
             )}
-        </div>
+        </Card>
     );
 }
 

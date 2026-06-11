@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllEvents } from "../services/eventsService";
 import EventCard from "../components/EventCard";
+import Layout from "../../components/Layout";
 
 function EventsPage() {
     const [events, setEvents] = useState([]);
@@ -32,7 +33,7 @@ function EventsPage() {
     }
 
     return (
-        <div style={{ padding: "20px" }}>
+        <Layout>
             <h1>All Events</h1>
 
             {events.length === 0 ? (
@@ -45,7 +46,7 @@ function EventsPage() {
                     />
                 ))
             )}
-        </div>
+        </Layout>
     );
 }
 

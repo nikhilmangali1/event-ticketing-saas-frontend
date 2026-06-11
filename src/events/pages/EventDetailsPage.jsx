@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEventById, deleteEvent } from "../services/eventsService";
 import { bookTicket } from "../../tickets/services/ticketService";
+import Layout from "../../components/Layout";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorMessage from "../../components/ErrorMessage";
 
 function EventDetailsPage() {
 
@@ -33,11 +36,11 @@ function EventDetailsPage() {
     }, [id]);
 
     if (loading) {
-        return <h2>Loading event...</h2>;
+        return <LoadingSpinner/>;
     }
 
     if (error) {
-        return <h2>{error}</h2>;
+        return <ErrorMessage message={error}/>;
     }
 
     if (!event) {
@@ -93,7 +96,7 @@ function EventDetailsPage() {
     
 
     return (
-        <div style={{ padding: "20px" }}>
+        <Layout>
             <h1>{event.title}</h1>
 
             <p>
@@ -134,7 +137,7 @@ function EventDetailsPage() {
             <button onClick={handleDelete}>
                 Delete Event
             </button>
-        </div>
+        </Layout>
         
     );
 }

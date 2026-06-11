@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getMyTickets,cancelTicket } from "../services/ticketService";
 import TicketCard from "../components/TicketCard";
+import Layout from "../../components/Layout";
 
 function MyTicketsPage() {
 
@@ -38,7 +39,7 @@ function MyTicketsPage() {
     }
 
     return (
-        <div style={{ padding: "20px" }}>
+        <Layout>
             <h1>My Tickets</h1>
 
             {tickets.length === 0 ? (
@@ -52,7 +53,7 @@ function MyTicketsPage() {
                     />
                 ))
             )}
-        </div>
+        </Layout>
     );
 }
 
