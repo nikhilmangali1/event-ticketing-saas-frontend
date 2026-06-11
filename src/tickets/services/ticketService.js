@@ -1,36 +1,25 @@
-import axios from "axios";
+import axiosClient from "../../api/axiosClient";
 
-const BASE_URL = "http://localhost:8080/api/v1/tickets";
-
-const getAuthHeaders = () => ({
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
-    }
-});
+const BASE_URL = "/tickets";
 
 export const bookTicket = async (eventId) => {
-    const response = await axios.post(
-        `${BASE_URL}/book/${eventId}`,
-        {},
-        getAuthHeaders()
+    const response = await axiosClient.post(
+        `${BASE_URL}/book/${eventId}`
     );
 
     return response.data;
 };
 
 export const getMyTickets = async () => {
-    const response = await axios.get(
-        `${BASE_URL}/my`,
-        getAuthHeaders()
+    const response = await axiosClient.get(
+        `${BASE_URL}/my`
     );
 
     return response.data;
 };
 
 export const cancelTicket = async (ticketId) => {
-    await axios.patch(
-        `${BASE_URL}/cancel/${ticketId}`,
-        {},
-        getAuthHeaders()
+    await axiosClient.patch(
+        `${BASE_URL}/cancel/${ticketId}`
     );
 };
