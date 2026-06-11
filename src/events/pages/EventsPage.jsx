@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { getAllEvents } from "../services/eventsService";
 import EventCard from "../components/EventCard";
 import Layout from "../../components/Layout";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorMessage from "../../components/ErrorMessage";
+import "../../styles/events.css"
 
 function EventsPage() {
     const [events, setEvents] = useState([]);
@@ -25,11 +28,11 @@ function EventsPage() {
     }, []);
 
     if (loading) {
-        return <h2>Loading events...</h2>;
+        return <LoadingSpinner />;
     }
 
     if (error) {
-        return <h2>{error}</h2>;
+        return <ErrorMessage message={error} />;
     }
 
     return (
@@ -37,15 +40,20 @@ function EventsPage() {
             <h1>All Events</h1>
 
             {events.length === 0 ? (
-                <p>No events available</p>
-            ) : (
-                events.map((event) => (
+            <div style={{ textAlign: "center", marginTop: "40px" }}>
+                <h3>No Events Available</h3>
+                <p>Create your first event.</p>
+            </div>
+        ) : (
+            <div className="events-grid">
+                {events.map((event) => (
                     <EventCard
                         key={event.id}
                         event={event}
                     />
-                ))
-            )}
+                ))}
+            </div>
+        )}
         </Layout>
     );
 }
