@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createEvent } from "../services/eventsService";
 import Layout from "../../components/Layout";
+import EventForm from "../components/EventForm";
 
 function CreateEventPage() {
 
@@ -36,72 +37,13 @@ function CreateEventPage() {
         <Layout>
             <h1>Create Event</h1>
 
-            <form onSubmit={handleSubmit}>
-
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                    value={formData.title}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <textarea
-                    name="description"
-                    placeholder="Description"
-                    value={formData.description}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <input
-                    type="text"
-                    name="venue"
-                    placeholder="Venue"
-                    value={formData.venue}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <input
-                    type="datetime-local"
-                    name="eventDate"
-                    value={formData.eventDate}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <input
-                    type="number"
-                    name="totalSeats"
-                    placeholder="Total Seats"
-                    value={formData.totalSeats}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <input
-                    type="number"
-                    step="0.01"
-                    name="price"
-                    placeholder="Price"
-                    value={formData.price}
-                    onChange={handleChange}
-                />
-
-                <br /><br />
-
-                <button type="submit">
-                    Create Event
-                </button>
-
-            </form>
+            <EventForm
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                submitButtonText="Create Event"
+                showTotalSeats={true}
+            />
         </Layout>
     );
 }

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { logout } from "../services/authService";
 import "../styles/dashboard.css"
+import Button from "../components/Button";
 
 function DashboardPage(){
 
@@ -27,27 +28,27 @@ function DashboardPage(){
             <div className="dashboard-actions">
 
                 <div className="dashboard-card">
-                    <button onClick={() => navigate("/events/create")}>
+                    <Button onClick={() => navigate("/events/create")}>
                         Create Event
-                    </button>
+                    </Button>
                 </div>
 
                 <div className="dashboard-card">
-                    <button onClick={() => navigate("/events")}>
+                    <Button onClick={() => navigate("/events")}>
                         Browse Events
-                    </button>
+                    </Button>
                 </div>
 
                 <div className="dashboard-card">
-                    <button onClick={() => navigate("/my-tickets")}>
+                    <Button onClick={() => navigate("/my-tickets")}>
                         My Tickets
-                    </button>
+                    </Button>
                 </div>
 
                 <div className="dashboard-card">
-                    <button onClick={handleLogout}>
+                    <Button onClick={handleLogout}>
                         Logout
-                    </button>
+                    </Button>
                 </div>
 
             </div>

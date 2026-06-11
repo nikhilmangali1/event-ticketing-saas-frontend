@@ -5,6 +5,7 @@ import { bookTicket } from "../../tickets/services/ticketService";
 import Layout from "../../components/Layout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage";
+import Button from "../../components/Button";
 
 function EventDetailsPage() {
 
@@ -120,23 +121,23 @@ function EventDetailsPage() {
             </p>
             <hr />
 
-            <button
+            <Button
                 onClick={handleBookTicket}
                 disabled={bookingLoading}
             >
                 {bookingLoading ? "Booking..." : "Book Ticket"}
-            </button>
+            </Button>
 
             {bookingMessage && (
                 <p>{bookingMessage}</p>
             )}
-            <button onClick={() => navigate(`/events/edit/${id}`)}>
+            <Button onClick={() => navigate(`/events/edit/${id}`)}>
                 Update Event
-            </button>
+            </Button>
 
-            <button onClick={handleDelete}>
+            <Button onClick={handleDelete}>
                 Delete Event
-            </button>
+            </Button>
         </Layout>
         
     );

@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import Card from "../../components/Card";
 
 function TicketCard({ ticket, onCancel }) {
@@ -18,11 +19,11 @@ function TicketCard({ ticket, onCancel }) {
             </p>
 
             {ticket.status !== "CANCELLED" && (
-                <button
+                <Button
                     onClick={() => onCancel(ticket.ticketId)}
                 >
                     Cancel Ticket
-                </button>
+                </Button>
             )}
         </Card>
     );
