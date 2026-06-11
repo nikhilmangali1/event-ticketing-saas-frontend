@@ -1,0 +1,111 @@
+.tickets-header {
+    margin-bottom: 24px;
+}
+
+.tickets-header h1 {
+    margin-bottom: 8px;
+}
+
+.tickets-header {
+    max-width: 900px;
+    margin: 0 auto 24px auto;
+}
+
+.tickets-grid {
+    max-width: 900px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ticket-card {
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.2s ease;
+}
+
+.ticket-card:hover {
+    transform: translateY(-2px);
+}
+
+.ticket-title {
+    margin-bottom: 16px;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    color: #1f2937;
+}
+
+.ticket-status {
+    display: inline-block;
+
+    margin: 12px 0 16px 0;
+
+    padding: 8px 16px;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    text-transform: uppercase;
+}
+
+.ticket-status.booked {
+    background: #dbeafe;
+    color: #1d4ed8;
+
+    border: 1px solid #93c5fd;
+}
+
+.ticket-status.cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+
+    border: 1px solid #fca5a5;
+}
+
+.cancel-ticket-btn {
+    margin-top: 16px;
+
+    background-color: #dc2626;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 10px 16px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.cancel-ticket-btn:hover {
+    background-color: #b91c1c;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+}
+
+.empty-state h2 {
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    color: #666;
+}
