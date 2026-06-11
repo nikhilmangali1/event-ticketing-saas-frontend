@@ -3,7 +3,13 @@ function Input({
     name,
     value,
     onChange,
-    placeholder
+    placeholder,
+    className = "",
+    required = false,
+    disabled = false,
+    min,
+    max,
+    step
 }) {
     return (
         <input
@@ -12,6 +18,12 @@ function Input({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
+            className={className}
+            required={required}
+            disabled={disabled}
+            min={min}
+            max={max}
+            step={step}
         />
     );
 }

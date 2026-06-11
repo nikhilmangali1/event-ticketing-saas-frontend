@@ -2,7 +2,10 @@ function TextArea({
     name,
     value,
     onChange,
-    placeholder
+    placeholder,
+    className = "",
+    required = false,
+    rows = 5
 }) {
     return (
         <textarea
@@ -10,6 +13,9 @@ function TextArea({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
+            className={className}
+            required={required}
+            rows={rows}
         />
     );
 }

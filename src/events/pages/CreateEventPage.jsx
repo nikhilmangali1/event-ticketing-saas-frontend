@@ -2,8 +2,11 @@ import { useState } from "react";
 import { createEvent } from "../services/eventsService";
 import Layout from "../../components/Layout";
 import EventForm from "../components/EventForm";
+import { useNavigate } from "react-router-dom";
 
 function CreateEventPage() {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         title: "",
@@ -25,8 +28,8 @@ function CreateEventPage() {
         e.preventDefault();
 
         try {
-            await createEvent(formData);
-            alert("Event created successfully");
+            const event = await createEvent(formData);
+            navigate(`/events/${event.id}`);
         } catch (error) {
             console.error(error);
             alert("Failed to create event");
@@ -35,7 +38,13 @@ function CreateEventPage() {
 
     return (
         <Layout>
-            <h1>Create Event</h1>
+        <div className="event-form-page">
+            <div className="event-form-header">
+                <h1>Create Event</h1>
+                <p>
+                    Fill in the details below to publish your event.
+                </p>
+            </div>
 
             <EventForm
                 formData={formData}
@@ -44,7 +53,8 @@ function CreateEventPage() {
                 submitButtonText="Create Event"
                 showTotalSeats={true}
             />
-        </Layout>
+        </div>
+    </Layout>
     );
 }
 

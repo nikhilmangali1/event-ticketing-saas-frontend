@@ -25,8 +25,10 @@ function LoginPage() {
 
     return (
         <div className="auth-container">
-            <h1>TicketFlow Login</h1>
-
+            <h1>Welcome Back</h1>
+            <p className="auth-subtitle">
+                Sign in to manage your events and bookings
+            </p>
             <div>
                 <label>Email</label>
                 <br />
@@ -55,14 +57,18 @@ function LoginPage() {
 
             <br />
 
-            <button onClick={handleLogin}>
-                Login
-            </button><hr></hr>
-            <button onClick={() => navigate("/register")}>
-                Register
-            </button>
-            <p>{message}</p>
-            <hr />
+           <div className="auth-actions">
+                <button className="auth-primary-btn" onClick={handleLogin}>
+                    Login
+                </button>
+
+                <button
+                    className="auth-secondary-btn"
+                    onClick={() => navigate("/register")}
+                >
+                    Create Account
+                </button>
+            </div>
         </div>
     );
 }

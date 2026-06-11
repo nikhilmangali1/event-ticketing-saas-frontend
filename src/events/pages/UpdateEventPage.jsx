@@ -77,14 +77,18 @@ function UpdateEventPage() {
 
     return (
         <Layout>
-            <h1>Update Event</h1>
-
-            <EventForm
+            <div className="event-form-page">
+                <div className="event-form-header">
+                    <h1>Update Event</h1>
+                    <p>Modify event details and save your changes</p>
+                </div>
+                <EventForm
                 formData={formData}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 submitButtonText="Update Event"
-            />
+                />
+            </div>
         </Layout>
     );
 }
