@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { logout } from "../services/authService";
-import "../styles/dashboard.css"
-import Button from "../components/Button";
+import { logout } from "../../auth/services/authService";
+import "../../styles/dashboard.css"
+import Button from "../../components/Button";
 
 function DashboardPage(){
 

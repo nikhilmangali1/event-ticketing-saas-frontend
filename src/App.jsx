@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./auth/pages/LoginPage";
+import RegisterPage from "./auth/pages/RegisterPage";
+import DashboardPage from "./dashboard/pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EventsPage from "./events/pages/EventsPage";
 import EventDetailsPage from "./events/pages/EventDetailsPage";
