@@ -3,6 +3,7 @@ import { getMyTickets,cancelTicket } from "../services/ticketService";
 import TicketCard from "../components/TicketCard";
 import Layout from "../../components/Layout";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { showErrorToast } from "../../utils/toastService";
 import "../../styles/tickets.css"
 
 function MyTicketsPage() {
@@ -16,6 +17,10 @@ function MyTicketsPage() {
             setTickets(data);
         } catch (error) {
             console.error(error);
+            showErrorToast(
+                error.response?.data?.message || "Failed to load your tickets.",
+                error.response?.data?.details || null
+            );
         } finally {
             setLoading(false);
         }
@@ -33,6 +38,10 @@ function MyTicketsPage() {
 
         } catch (error) {
             console.error(error);
+            showErrorToast(
+                error.response?.data?.message || "Failed to cancel ticket.",
+                error.response?.data?.details || null
+            );
         }
     };
 

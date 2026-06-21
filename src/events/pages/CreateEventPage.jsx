@@ -3,6 +3,7 @@ import { createEvent } from "../services/eventsService";
 import Layout from "../../components/Layout";
 import EventForm from "../components/EventForm";
 import { useNavigate } from "react-router-dom";
+import { showErrorToast } from "../../utils/toastService";
 
 function CreateEventPage() {
 
@@ -32,7 +33,10 @@ function CreateEventPage() {
             navigate(`/events/${event.id}`);
         } catch (error) {
             console.error(error);
-            alert("Failed to create event");
+            showErrorToast(
+                error.response?.data?.message || "Unable to create event.",
+                error.response?.data?.details || null
+            );
         }
     };
 

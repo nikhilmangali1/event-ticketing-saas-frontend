@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { getOrganizerRequests, approveRequest, rejectRequest } from "../services/adminService";
+import { showErrorToast } from "../../utils/toastService";
 import "../../styles/events.css";
 
 function OrganizerRequestsPage() {
@@ -17,7 +18,7 @@ function OrganizerRequestsPage() {
             setRequests(data || []);
         } catch (error) {
             console.error(error);
-            setMessage("Failed to load organizer requests.");
+            setMessage(error.response?.data?.message || "Failed to load organizer requests.");
         } finally {
             setLoading(false);
         }
@@ -35,7 +36,7 @@ function OrganizerRequestsPage() {
             await loadRequests();
         } catch (error) {
             console.error(error);
-            setMessage("Failed to approve request.");
+            setMessage(error.response?.data?.message || "Failed to approve request.");
         } finally {
             setActionLoading(null);
         }
@@ -49,7 +50,7 @@ function OrganizerRequestsPage() {
             await loadRequests();
         } catch (error) {
             console.error(error);
-            setMessage("Failed to reject request.");
+            setMessage(error.response?.data?.message || "Failed to reject request.");
         } finally {
             setActionLoading(null);
         }

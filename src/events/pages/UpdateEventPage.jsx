@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getEventById, updateEvent } from "../services/eventsService";
 import EventForm from "../components/EventForm";
 import Layout from "../../components/Layout";
+import { showErrorToast } from "../../utils/toastService";
 
 function UpdateEventPage() {
 
@@ -38,6 +39,10 @@ function UpdateEventPage() {
 
             } catch (error) {
                 console.error(error);
+                    showErrorToast(
+                        error.response?.data?.message || "Unable to load event details.",
+                        error.response?.data?.details || null
+                    );
             } finally {
                 setLoading(false);
             }
@@ -58,16 +63,14 @@ function UpdateEventPage() {
         e.preventDefault();
 
         try {
-
             await updateEvent(id, formData);
-
-            alert("Event updated successfully");
-
             navigate(`/events/${id}`);
-
         } catch (error) {
             console.error(error);
-            alert("Failed to update event");
+            showErrorToast(
+                error.response?.data?.message || "Unable to update event.",
+                error.response?.data?.details || null
+            );
         }
     };
 

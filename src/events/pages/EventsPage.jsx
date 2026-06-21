@@ -4,6 +4,7 @@ import EventCard from "../components/EventCard";
 import Layout from "../../components/Layout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage";
+import { showErrorToast } from "../../utils/toastService";
 import "../../styles/events.css"
 
 function EventsPage() {
@@ -18,7 +19,7 @@ function EventsPage() {
                 setEvents(data);
             } catch (err) {
                 console.error(err);
-                setError("Failed to load events");
+                    setError("Failed to load events");
             } finally {
                 setLoading(false);
             }

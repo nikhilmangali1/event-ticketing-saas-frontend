@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
+import { showErrorToast } from "../../utils/toastService";
 import "../../styles/auth.css"
 
 function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
   const handleLogin = async ()=> {
@@ -18,12 +18,14 @@ function LoginPage() {
       if (userData) {
         localStorage.setItem("user", JSON.stringify(userData));
       }
-    console.log("Login successful!");
-    setMessage("Login Successful");
+        console.log("Login successful!");
     navigate("/home")
     }catch(error){
       console.error(error);
-      setMessage("Invalid Credentials");
+            showErrorToast(
+                error.response?.data?.message || "Invalid Credentials",
+                error.response?.data?.details || null
+            );
     }
   }
 

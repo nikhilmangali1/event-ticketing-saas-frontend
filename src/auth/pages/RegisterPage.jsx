@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../services/authService";
+import { showErrorToast } from "../../utils/toastService";
 import "../../styles/auth.css"
 
 function RegisterPage() {
@@ -19,7 +20,7 @@ function RegisterPage() {
 
         } catch(error) {
             console.error(error);
-            setMessage("Registration Failed");
+            setMessage(error.response?.data?.message || "Registration Failed");
         }
     };
     return (

@@ -7,6 +7,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
+import { showErrorToast } from "../../utils/toastService";
 import "../../styles/event-details.css";
 
 function EventDetailsPage() {
@@ -16,6 +17,7 @@ function EventDetailsPage() {
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [errorDetails, setErrorDetails] = useState(null);
     const [bookingMessage, setBookingMessage] = useState("");
     const [bookingLoading, setBookingLoading] = useState(false);
     const navigate = useNavigate();
@@ -28,7 +30,8 @@ function EventDetailsPage() {
                 setEvent(data);
             } catch (err) {
                 console.error(err);
-                setError("Failed to load event");
+                setError(err.response?.data?.message || "Failed to load event");
+                setErrorDetails(err.response?.data?.details || null);
             } finally {
                 setLoading(false);
             }
@@ -43,7 +46,7 @@ function EventDetailsPage() {
     }
 
     if (error) {
-        return <ErrorMessage message={error}/>;
+        return <ErrorMessage message={error} details={errorDetails} />;
     }
 
     if (!event) {
@@ -71,6 +74,10 @@ function EventDetailsPage() {
             } else {
                 setBookingMessage("Failed to book ticket");
             }
+            showErrorToast(
+                error.response?.data?.message || "Failed to book ticket.",
+                error.response?.data?.details || null
+            );
 
         } finally {
             setBookingLoading(false);
@@ -93,7 +100,10 @@ function EventDetailsPage() {
 
         } catch (error) {
             console.error(error);
-            alert("Failed to delete event");
+            showErrorToast(
+                error.response?.data?.message || "Unable to delete event.",
+                error.response?.data?.details || null
+            );
         }
     };
     

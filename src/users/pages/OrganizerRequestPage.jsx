@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { requestOrganizerRole, getMyOrganizerRequest } from "../services/userService";
 import Layout from "../../components/Layout";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { showErrorToast } from "../../utils/toastService";
 import "../../styles/auth.css";
 
 function OrganizerRequestPage() {
@@ -20,7 +21,7 @@ function OrganizerRequestPage() {
             setRequest(data);
         } catch (error) {
             console.error(error);
-            setMessage("Unable to load your organizer request.");
+            setMessage(error.response?.data?.message || "Unable to load your organizer request.");
         } finally {
             setLoading(false);
         }
@@ -48,7 +49,7 @@ function OrganizerRequestPage() {
             await loadRequest();
         } catch (error) {
             console.error(error);
-            setMessage("Failed to submit request. Please try again.");
+            setMessage(error.response?.data?.message || "Failed to submit request. Please try again.");
         } finally {
             setSubmitting(false);
         }

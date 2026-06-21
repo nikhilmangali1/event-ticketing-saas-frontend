@@ -1,8 +1,11 @@
-function ErrorMessage({ message }) {
+function ErrorMessage({ message, details = null }) {
     return (
-        <h2>
-            {message}
-        </h2>
+        <div className="error-message">
+            <h2>{message}</h2>
+            {details && (
+                <div className="error-details">{details}</div>
+            )}
+        </div>
     );
 }
 
