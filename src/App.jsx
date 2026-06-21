@@ -39,7 +39,7 @@ function App() {
                 <Route
                     path="/my-tickets"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute allowedRoles={["USER"]}>
                             <MyTicketsPage />
                         </ProtectedRoute>
                     }
@@ -47,7 +47,7 @@ function App() {
                 <Route
                     path="/events/create"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute allowedRoles={["ORGANIZER", "ADMIN"]}>
                             <CreateEventPage />
                         </ProtectedRoute>
                     }
@@ -55,7 +55,7 @@ function App() {
                 <Route
                     path="/events/edit/:id"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute allowedRoles={["ORGANIZER", "ADMIN"]}>
                             <UpdateEventPage />
                         </ProtectedRoute>
                     }   

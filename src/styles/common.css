@@ -141,13 +141,23 @@ textarea {
 
 .empty-state {
     text-align: center;
-    padding: 48px 24px;
+    padding: 64px 24px;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    line-height: 1;
 }
 
 .empty-state h2 {
     margin-bottom: 12px;
+    font-size: 22px;
+    color: #1e293b;
 }
 
 .empty-state p {
     color: #64748b;
+    margin: 0 0 4px;
+    font-size: 15px;
 }

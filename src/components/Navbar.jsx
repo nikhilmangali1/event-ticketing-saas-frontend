@@ -41,8 +41,12 @@ function Navbar(){
             </Link>
             <div className="navbar-links">
                 <Link to="/events">Events</Link>
-                <Link to="/events/create">Create Event</Link>
-                <Link to="/my-tickets">My Tickets</Link>
+                {user?.role === "USER" && (
+                    <Link to="/my-tickets">My Tickets</Link>
+                )}
+                {(user?.role === "ORGANIZER" || user?.role === "ADMIN") && (
+                    <Link to="/events/create">Create Event</Link>
+                )}
                 {user?.role === "USER" && (
                     <Link to="/become-organizer">Request Organizer</Link>
                 )}

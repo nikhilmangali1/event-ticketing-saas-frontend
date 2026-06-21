@@ -5,8 +5,8 @@ import { bookTicket } from "../../tickets/services/ticketService";
 import Layout from "../../components/Layout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorMessage from "../../components/ErrorMessage";
-import Button from "../../components/Button";
 import Card from "../../components/Card";
+import EventHero from "../components/EventHero";
 import { showErrorToast } from "../../utils/toastService";
 import "../../styles/event-details.css";
 
@@ -19,8 +19,19 @@ function EventDetailsPage() {
     const [error, setError] = useState("");
     const [errorDetails, setErrorDetails] = useState(null);
     const [bookingMessage, setBookingMessage] = useState("");
+    const [bookingMessageType, setBookingMessageType] = useState("");
     const [bookingLoading, setBookingLoading] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
     const navigate = useNavigate();
+
+    const user = (() => {
+        try {
+            return JSON.parse(localStorage.getItem("user"));
+        } catch {
+            return null;
+        }
+    })();
 
     useEffect(() => {
 
@@ -50,15 +61,22 @@ function EventDetailsPage() {
     }
 
     if (!event) {
-    return <ErrorMessage message="Event not found" />;
+        return <ErrorMessage message="Event not found" />;
     }
+
+    const isOwner = user?.role === "ADMIN" || user?.email === event.organizerEmail;
+    const isUser = user?.role === "USER";
+    const canBook = isUser && !isOwner;
+    const isSoldOut = event.availableSeats <= 0;
 
     const handleBookTicket = async () => {
         try {
             setBookingLoading(true);
+            setBookingMessage("");
 
             const response = await bookTicket(id);
 
+            setBookingMessageType("success");
             setBookingMessage(
                 `Ticket booked successfully. Ticket ID: ${response.ticketId}`
             );
@@ -68,136 +86,160 @@ function EventDetailsPage() {
         } catch (error) {
 
             console.error(error);
+            setBookingMessageType("error");
 
             if (error.response?.data?.message) {
                 setBookingMessage(error.response.data.message);
             } else {
                 setBookingMessage("Failed to book ticket");
             }
-            showErrorToast(
-                error.response?.data?.message || "Failed to book ticket.",
-                error.response?.data?.details || null
-            );
 
         } finally {
             setBookingLoading(false);
         }
     };
 
-    const handleDelete = async () => {
-        const confirmed = window.confirm(
-            "Are you sure you want to delete this event?"
-        );
-
-        if (!confirmed) {
-            return;
-        }
-
+    const handleDeleteConfirm = async () => {
         try {
+            setDeleteLoading(true);
             await deleteEvent(id);
-
             navigate("/events");
-
         } catch (error) {
             console.error(error);
             showErrorToast(
                 error.response?.data?.message || "Unable to delete event.",
                 error.response?.data?.details || null
             );
+            setShowDeleteModal(false);
         }
     };
-    
 
     return (
         <Layout>
 
             <div className="event-details-container">
 
-                <Card>
+                <button
+                    className="btn-back"
+                    onClick={() => navigate("/events")}
+                >
+                    <span className="btn-back-arrow">&larr;</span>
+                    Back to Events
+                </button>
 
-                    <h1 className="event-details-title">
-                        {event.title}
-                    </h1>
+                <EventHero event={event} />
 
-                    <p className="event-details-description">
-                        {event.description}
-                    </p>
+                <div className="event-details-content">
 
-                    <div className="event-info">
+                    <div className="event-description-section">
+                        <h2 className="section-title">About this event</h2>
+                        <p className="event-description">
+                            {event.description}
+                        </p>
 
-                        <div className="event-info-item">
-                            <strong>Venue</strong>
-                            <div>{event.venue}</div>
-                        </div>
-
-                        <div className="event-info-item">
-                            <strong>Date</strong>
-                            <div>
-                            {new Date(event.eventDate).toLocaleString("en-IN", {
-                                dateStyle: "medium",
-                                timeStyle: "short"
-                            })}
-                        </div>
-                        </div>
-
-                        <div className="event-info-item">
-                            <strong>Price</strong>
-                            <div>₹{event.price}</div>
-                        </div>
-
-                        <div className="event-info-item">
-                            <strong>Seats</strong>
-                            <div>
-                                {event.availableSeats}/
-                                {event.totalSeats}
+                        {isOwner && (
+                            <div className="event-owner-actions">
+                                <button
+                                    onClick={() =>
+                                        navigate(`/events/edit/${id}`)
+                                    }
+                                    className="btn-edit-event"
+                                >
+                                    ✎ Edit Event
+                                </button>
+                                <button
+                                    onClick={() => setShowDeleteModal(true)}
+                                    className="btn-delete-event"
+                                >
+                                    🗑 Delete Event
+                                </button>
                             </div>
-                        </div>
-
-                        <div className="event-info-item">
-                            <strong>Organizer</strong>
-                            <div>
-                                {event.organizerName}
-                            </div>
-                        </div>
-
+                        )}
                     </div>
 
-                    <div className="event-actions">
+                    <div className="event-booking-section">
+                        <Card>
+                            <h3 className="booking-card-title">
+                                {canBook ? "Ready to attend?" : "Event Details"}
+                            </h3>
 
-                        <Button
-                            onClick={handleBookTicket}
-                            disabled={bookingLoading}
-                        >
-                            {bookingLoading
-                                ? "Booking..."
-                                : "Book Ticket"}
-                        </Button>
+                            <div className="booking-info-grid">
+                                <div className="booking-info-item">
+                                    <span className="booking-label">Price per ticket</span>
+                                    <span className="booking-value">₹{event.price}</span>
+                                </div>
+                                <div className="booking-info-item">
+                                    <span className="booking-label">Seats available</span>
+                                    <span className={`booking-value ${isSoldOut ? "sold-out" : ""}`}>
+                                        {isSoldOut ? "Sold Out" : `${event.availableSeats}/${event.totalSeats}`}
+                                    </span>
+                                </div>
+                            </div>
 
-                        <Button
-                            onClick={() =>
-                                navigate(`/events/edit/${id}`)
-                            }
-                        >
-                            Update Event
-                        </Button>
+                            {canBook ? (
+                                <button
+                                    onClick={handleBookTicket}
+                                    disabled={bookingLoading || isSoldOut}
+                                    className={`btn-book-ticket ${isSoldOut ? "btn-sold-out" : ""}`}
+                                >
+                                    {bookingLoading ? (
+                                        <>
+                                            <span className="btn-spinner" />
+                                            Booking...
+                                        </>
+                                    ) : isSoldOut ? (
+                                        "Sold Out"
+                                    ) : (
+                                        <>
+                                            <span>🎫</span>
+                                            Book Ticket Now
+                                        </>
+                                    )}
+                                </button>
+                            ) : (
+                                <div className="booking-notice">
+                                    {isOwner ? "You are the organizer of this event." : "Booking is available for attendees."}
+                                </div>
+                            )}
 
-                        <Button
-                            onClick={handleDelete}
-                        >
-                            Delete Event
-                        </Button>
-
+                            {bookingMessage && (
+                                <div className={`booking-message ${bookingMessageType}`}>
+                                    {bookingMessage}
+                                </div>
+                            )}
+                        </Card>
                     </div>
 
-                    {bookingMessage && (
-                        <div className="booking-message">
-                            {bookingMessage}
-                        </div>
-                    )}
-
-                </Card>
+                </div>
 
             </div>
+
+            {showDeleteModal && (
+                <div className="modal-overlay" onClick={() => setShowDeleteModal(false)}>
+                    <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+                        <h3 className="modal-title">Delete Event</h3>
+                        <p className="modal-message">
+                            Are you sure you want to delete <strong>"{event.title}"</strong>? This action cannot be undone.
+                        </p>
+                        <div className="modal-actions">
+                            <button
+                                className="modal-btn-cancel"
+                                onClick={() => setShowDeleteModal(false)}
+                                disabled={deleteLoading}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="modal-btn-delete"
+                                onClick={handleDeleteConfirm}
+                                disabled={deleteLoading}
+                            >
+                                {deleteLoading ? "Deleting..." : "Delete Event"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
         </Layout>
     );

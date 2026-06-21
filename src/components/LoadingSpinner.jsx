@@ -1,5 +1,12 @@
+import "../styles/LoadingSpinner.css";
+
 function LoadingSpinner() {
-    return <h2>Loading...</h2>;
+    return (
+        <div className="loading-container">
+            <div className="loading-spinner" />
+            <p className="loading-text">Loading...</p>
+        </div>
+    );
 }
 
 export default LoadingSpinner;
