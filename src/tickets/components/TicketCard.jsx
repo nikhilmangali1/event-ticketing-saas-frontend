@@ -3,44 +3,51 @@ import Card from "../../components/Card";
 import "../../styles/tickets.css"
 
 function TicketCard({ ticket, onCancel }) {
+    const details = ticket.detailsResponse || {};
+
     return (
         <Card className="ticket-card">
-            <h3 className="ticket-title">
-                {ticket.detailsResponse.title}
-            </h3>
 
-            <p>
-                <strong>Ticket ID:</strong> {ticket.ticketId}
-            </p>
+            <h3 className="ticket-title">{details.title}</h3>
 
-            <p>
-                <strong>Venue:</strong> {ticket.detailsResponse.venue}
-            </p>
+            <div className="ticket-card-details">
 
-            <p>
-                <strong>Event Date:</strong> {ticket.detailsResponse.eventDate}
-            </p>
+                <div className="ticket-card-detail-item">
+                    <strong>Ticket ID</strong>
+                    <span>{ticket.ticketId}</span>
+                </div>
 
-            <p>
-                <strong>Price:</strong> ₹{ticket.detailsResponse.price}
-            </p>
+                <div className="ticket-card-detail-item">
+                    <strong>Venue</strong>
+                    <span>{details.venue}</span>
+                </div>
+
+                <div className="ticket-card-detail-item">
+                    <strong>Event Date</strong>
+                    <span>{new Date(details.eventDate).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}</span>
+                </div>
+
+                <div className="ticket-card-detail-item">
+                    <strong>Price</strong>
+                    <span>₹{details.price}</span>
+                </div>
+
+            </div>
 
             <div>
-                <span
-                    className={`ticket-status ${ticket.status.toLowerCase()}`}
-                >
+                <span className={`ticket-status ${ticket.status.toLowerCase()}`}>
                     {ticket.status}
                 </span>
             </div>
 
-            {ticket.status !== "CANCELLED" && (
-                <Button
-                    className="cancel-ticket-btn"
-                    onClick={() => onCancel(ticket.ticketId)}
-                >
-                    Cancel Ticket
-                </Button>
-            )}
+            <div className="ticket-card-footer">
+                {ticket.status !== "CANCELLED" && (
+                    <Button className="cancel-ticket-btn" onClick={() => onCancel(ticket.ticketId)}>
+                        Cancel Ticket
+                    </Button>
+                )}
+            </div>
+
         </Card>
     );
 }

@@ -34,7 +34,7 @@ export const updateEvent = async (eventId, eventData) => {
 };
 
 export const deleteEvent = async (eventId) => {
-    await axios.delete(
+    await axiosClient.delete(
         `${BASE_URL}/${eventId}`
     );
 };

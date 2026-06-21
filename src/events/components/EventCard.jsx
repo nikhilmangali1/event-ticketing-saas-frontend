@@ -6,33 +6,31 @@ function EventCard({ event }) {
 
     return (
         <Card className="event-card">
-
-            <h2 className="event-card-title">
-                {event.title}
-            </h2>
+            <h2 className="event-card-title">{event.title}</h2>
 
             <div className="event-card-details">
 
-                <div>
-                    <strong>Venue:</strong> {event.venue}
+                <div className="event-card-detail-item">
+                    <strong>Venue</strong>
+                    <span>{event.venue}</span>
                 </div>
 
-                <div>
-                    <strong>Date:</strong>{" "}
-                    {new Date(event.eventDate).toLocaleString("en-IN", {
-                    dateStyle: "medium",
-                    timeStyle: "short"
-                })}
+                <div className="event-card-detail-item">
+                    <strong>Date</strong>
+                    <span>{new Date(event.eventDate).toLocaleString("en-IN", {
+                        dateStyle: "medium",
+                        timeStyle: "short"
+                    })}</span>
                 </div>
 
-                <div>
-                    <strong>Price:</strong> ₹{event.price}
+                <div className="event-card-detail-item">
+                    <strong>Price</strong>
+                    <span>₹{event.price}</span>
                 </div>
 
-                <div>
-                    <strong>Seats:</strong>{" "}
-                    {event.availableSeats}/
-                    {event.totalSeats}
+                <div className="event-card-detail-item">
+                    <strong>Seats</strong>
+                    <span>{event.availableSeats}/{event.totalSeats}</span>
                 </div>
 
             </div>
@@ -40,7 +38,7 @@ function EventCard({ event }) {
             <div className="event-card-footer">
                 <Link
                     className="event-card-link"
-                    to={`/events/${event.id}`}
+                    to={`/events/${event.id ?? event._id}`}
                 >
                     View Details
                 </Link>

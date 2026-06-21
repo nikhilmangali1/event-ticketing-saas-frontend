@@ -28,37 +28,45 @@ function RegisterPage() {
             <p className="auth-subtitle">
                 Join TicketFlow and start booking events
             </p>
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter Name"
-            />
-            <br/><br/>
 
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter Email"
-            />
-            <br/><br/>
+            <div className="auth-form">
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter Name"
+                />
 
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter Password"
-            />
-            <br/><br/><br/>
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter Email"
+                />
 
-            <button onClick={handleRegister}>
-                Register
-            </button><hr/>
-            <button onClick={() => navigate("/login")}>
-                Login
-            </button>
-            <p>{message}</p>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter Password"
+                />
+
+                <div className="auth-actions">
+                    <button className="auth-primary-btn" onClick={handleRegister}>
+                        Register
+                    </button>
+
+                    <button
+                        type="button"
+                        className="auth-secondary-btn"
+                        onClick={() => navigate("/login")}
+                    >
+                        Login
+                    </button>
+                </div>
+            </div>
+
+            {message && <p className="auth-message">{message}</p>}
         </div>
     );
 }

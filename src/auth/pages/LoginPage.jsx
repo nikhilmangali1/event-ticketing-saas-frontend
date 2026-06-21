@@ -14,9 +14,13 @@ function LoginPage() {
       const data = await login(email, password);
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-      console.log("Login successful!");
-      setMessage("Login Successful");
-      navigate("/dashboard")
+      const userData = data.user || (data.role ? data : null);
+      if (userData) {
+        localStorage.setItem("user", JSON.stringify(userData));
+      }
+    console.log("Login successful!");
+    setMessage("Login Successful");
+    navigate("/home")
     }catch(error){
       console.error(error);
       setMessage("Invalid Credentials");

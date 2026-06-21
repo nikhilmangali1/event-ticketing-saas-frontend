@@ -1,16 +1,20 @@
 .event-form-page {
-    max-width: 900px;
+    max-width: 980px;
     margin: 0 auto;
+    padding: 28px 0 36px;
 }
 
 .event-form-header {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .event-form-header h1 {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    font-size: clamp(1.6rem, 2.2vw, 2rem);
+    color: #0f172a;
 }
 
 .event-form-header p {
-    color: #666;
+    color: #475569;
+    max-width: 720px;
 }

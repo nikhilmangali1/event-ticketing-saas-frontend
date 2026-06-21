@@ -25,7 +25,7 @@ function EventForm({
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group full-width">
                 <TextArea
                     name="description"
                     placeholder="Event Description"

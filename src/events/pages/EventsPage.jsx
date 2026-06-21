@@ -32,28 +32,37 @@ function EventsPage() {
     }
 
     if (error) {
-        return <ErrorMessage message={error} />;
+        return (
+            <Layout>
+                <ErrorMessage message={error} />
+            </Layout>
+        );
     }
 
     return (
         <Layout>
-            <h1>All Events</h1>
+            <div className="events-page">
+                <div className="events-header">
+                    <h1>All Events</h1>
+                    <p>Browse current events in a clean, single-column list with clear details and actions.</p>
+                </div>
 
-            {events.length === 0 ? (
-            <div style={{ textAlign: "center", marginTop: "40px" }}>
-                <h3>No Events Available</h3>
-                <p>Create your first event.</p>
+                {events.length === 0 ? (
+                    <div className="empty-state">
+                        <h2>No Events Available</h2>
+                        <p>Create your first event.</p>
+                    </div>
+                ) : (
+                    <div className="events-grid">
+                        {events.map((event) => (
+                            <EventCard
+                                key={event.id}
+                                event={event}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
-        ) : (
-            <div className="events-grid">
-                {events.map((event) => (
-                    <EventCard
-                        key={event.id}
-                        event={event}
-                    />
-                ))}
-            </div>
-        )}
         </Layout>
     );
 }

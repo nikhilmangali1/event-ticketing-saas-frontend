@@ -46,7 +46,8 @@ function MyTicketsPage() {
 
     return (
         <Layout>
-           <div className="tickets-header">
+           <div className="tickets-page">
+               <div className="tickets-header">
                 <h1>My Tickets</h1>
                 <p>
                     View and manage all your booked event tickets.
@@ -71,6 +72,7 @@ function MyTicketsPage() {
                     ))}
                 </div>
             )}
+           </div>
         </Layout>
     );
 }

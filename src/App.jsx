@@ -9,6 +9,9 @@ import EventDetailsPage from "./events/pages/EventDetailsPage";
 import MyTicketsPage from "./tickets/pages/MyTicketsPage";
 import CreateEventPage from "./events/pages/CreateEventPage";
 import UpdateEventPage from "./events/pages/UpdateEventPage";
+import OrganizerRequestPage from "./users/pages/OrganizerRequestPage";
+import OrganizerRequestsPage from "./users/pages/OrganizerRequestsPage";
+import ProfilePage from "./users/pages/ProfilePage";
 
 function App() {
     return (
@@ -17,9 +20,9 @@ function App() {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/dashboard" element={
-                  <ProtectedRoute> <DashboardPage /></ProtectedRoute>
-                }/>
+                                <Route path="/home" element={
+                                    <ProtectedRoute> <DashboardPage /></ProtectedRoute>
+                                }/>
                 <Route path="/events" element={
                     <ProtectedRoute>
                         <EventsPage />
@@ -54,6 +57,32 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <UpdateEventPage />
+                        </ProtectedRoute>
+                    }   
+                />
+                <Route
+                    path="/become-organizer"
+                    element={
+                        <ProtectedRoute allowedRoles={["USER"]}>
+                            <OrganizerRequestPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin/organizer-requests"
+                    element={
+                        <ProtectedRoute allowedRoles={["ADMIN"]}>
+                            <OrganizerRequestsPage />
                         </ProtectedRoute>
                     }
                 />
