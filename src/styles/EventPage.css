@@ -1,16 +1,60 @@
 .event-form-page {
-    max-width: 900px;
+    max-width: 980px;
     margin: 0 auto;
+    padding: 24px 0 48px;
 }
 
 .event-form-header {
-    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
 }
 
-.event-form-header h1 {
-    margin-bottom: 8px;
+.event-form-header-text h1 {
+    margin: 0 0 6px;
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    color: #0f172a;
+    letter-spacing: -0.02em;
 }
 
-.event-form-header p {
-    color: #666;
+.event-form-header-text p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.btn-form-page-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: white;
+    color: #475569;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-form-page-back:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+@media (max-width: 640px) {
+    .event-form-header {
+        flex-direction: column;
+    }
+
+    .event-form-page {
+        padding: 16px 0 32px;
+    }
 }

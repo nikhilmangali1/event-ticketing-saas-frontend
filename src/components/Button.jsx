@@ -3,14 +3,17 @@ function Button({
     onClick,
     type = "button",
     disabled = false,
-    className = ""
+    className = "",
+    variant = "primary"
 }) {
+    const baseClass = variant === "secondary" ? "button-secondary" : "button-primary";
+
     return (
         <button
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={className}
+            className={`${baseClass} ${className}`}
         >
             {children}
         </button>

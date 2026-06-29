@@ -1,14 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./auth/pages/LoginPage";
+import RegisterPage from "./auth/pages/RegisterPage";
+import DashboardPage from "./dashboard/pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EventsPage from "./events/pages/EventsPage";
 import EventDetailsPage from "./events/pages/EventDetailsPage";
 import MyTicketsPage from "./tickets/pages/MyTicketsPage";
 import CreateEventPage from "./events/pages/CreateEventPage";
 import UpdateEventPage from "./events/pages/UpdateEventPage";
+import OrganizerRequestPage from "./users/pages/OrganizerRequestPage";
+import OrganizerRequestsPage from "./users/pages/OrganizerRequestsPage";
+import ProfilePage from "./users/pages/ProfilePage";
 
 function App() {
     return (
@@ -17,9 +20,9 @@ function App() {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/dashboard" element={
-                  <ProtectedRoute> <DashboardPage /></ProtectedRoute>
-                }/>
+                                <Route path="/home" element={
+                                    <ProtectedRoute> <DashboardPage /></ProtectedRoute>
+                                }/>
                 <Route path="/events" element={
                     <ProtectedRoute>
                         <EventsPage />
@@ -36,7 +39,7 @@ function App() {
                 <Route
                     path="/my-tickets"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute allowedRoles={["USER"]}>
                             <MyTicketsPage />
                         </ProtectedRoute>
                     }
@@ -44,7 +47,7 @@ function App() {
                 <Route
                     path="/events/create"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute allowedRoles={["ORGANIZER", "ADMIN"]}>
                             <CreateEventPage />
                         </ProtectedRoute>
                     }
@@ -52,8 +55,34 @@ function App() {
                 <Route
                     path="/events/edit/:id"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute allowedRoles={["ORGANIZER", "ADMIN"]}>
                             <UpdateEventPage />
+                        </ProtectedRoute>
+                    }   
+                />
+                <Route
+                    path="/become-organizer"
+                    element={
+                        <ProtectedRoute allowedRoles={["USER"]}>
+                            <OrganizerRequestPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin/organizer-requests"
+                    element={
+                        <ProtectedRoute allowedRoles={["ADMIN"]}>
+                            <OrganizerRequestsPage />
                         </ProtectedRoute>
                     }
                 />

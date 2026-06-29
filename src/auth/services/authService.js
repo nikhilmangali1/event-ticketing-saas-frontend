@@ -40,3 +40,13 @@ export const logout = async(refreshToken) => {
         }
     );
 };
+
+export const refreshAccessToken = async (refreshToken) => {
+    const response = await axios.post(
+        `${BASE_URL}/refresh`,
+        {
+            refreshToken
+        }
+    );
+    return response.data;
+};
