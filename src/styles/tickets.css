@@ -113,6 +113,44 @@
     background-color: #b91c1c;
 }
 
+.qr-display {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
+    margin: 12px 0;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+}
+
+.qr-image {
+    width: 180px;
+    height: 180px;
+    image-rendering: pixelated;
+}
+
+.qr-btn {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.qr-btn:hover {
+    background-color: #4f46e5;
+}
+
+.qr-btn:disabled {
+    background-color: #a5b4fc;
+    cursor: not-allowed;
+}
+
 .empty-state {
     text-align: center;
     padding: 48px 24px;
@@ -124,4 +162,80 @@
 
 .empty-state p {
     color: #64748b;
+}
+
+.pdf-ticket-template {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    width: 800px;
+    padding: 48px;
+    background: #ffffff;
+    font-family: Segoe UI, Arial, sans-serif;
+}
+
+.pdf-ticket-header {
+    margin-bottom: 32px;
+    border-bottom: 2px solid #6366f1;
+    padding-bottom: 16px;
+}
+
+.pdf-ticket-header h1 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.pdf-ticket-header p {
+    margin: 4px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.pdf-ticket-title {
+    color: #111827;
+    font-size: 28px;
+    margin: 0 0 24px;
+}
+
+.pdf-ticket-details {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+}
+
+.pdf-ticket-details td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.pdf-label {
+    color: #6b7280;
+    font-weight: 600;
+    width: 30%;
+    font-size: 14px;
+}
+
+.pdf-value {
+    color: #111827;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.pdf-ticket-qr {
+    text-align: center;
+    margin: 24px 0;
+}
+
+.pdf-ticket-qr img {
+    width: 200px;
+    height: 200px;
+}
+
+.pdf-ticket-footer {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 12px;
+    margin-top: 16px;
 }
